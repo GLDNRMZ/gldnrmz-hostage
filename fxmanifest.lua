@@ -1,11 +1,29 @@
 fx_version 'cerulean'
 game 'gta5'
 lua54 'yes'
+use_experimental_fxv2_oal 'yes'
 
-author 'rubbertoe98'
-description 'TakeHostage'
-version '1.0.0'
+name 'gldnrmz-hostage'
+author 'rubbertoe98, GLDNRMZ'
+description 'Take players or NPCs hostage at gunpoint'
+version '2.0.0'
 
-shared_script 'config.lua'
-client_script 'cl_takehostage.lua'
-server_script 'sv_takehostage.lua'
+ox_lib 'locale'
+
+shared_scripts {
+    '@ox_lib/init.lua',
+    'config.lua',
+}
+
+client_script 'client/main.lua'
+server_script 'server/main.lua'
+
+files {
+    'locales/*.json',
+}
+
+dependencies {
+    '/onesync',
+    'ox_lib',
+    'community_bridge',
+}

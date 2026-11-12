@@ -1,0 +1,23 @@
+{
+  "notify_title": "Take Hostage",
+  "release": "Release",
+  "kill": "Kill",
+  "help_text": "[%s] Release | [%s] Kill",
+  "keybind_take": "Take hostage",
+  "keybind_release": "Release hostage",
+  "keybind_kill": "Kill hostage",
+  "command_help": "Take the nearest person hostage at gunpoint",
+  "no_one_nearby": "No one nearby to take as hostage!",
+  "need_weapon": "You need a loaded pistol in your hand!",
+  "hands_up": "Target must have their hands up!",
+  "in_vehicle": "You or the target cannot be in a vehicle!",
+  "cannot_enter_vehicle": "You cannot enter a vehicle while holding a hostage!",
+  "already_busy": "You are already in a hostage situation!",
+  "target_busy": "That person is already being held.",
+  "target_incapacitated": "That person is cuffed or down.",
+  "blacklisted_job": "You cannot take hostages!",
+  "too_far": "They moved too far away.",
+  "cooldown": "Wait %s more seconds.",
+  "no_control": "Couldn't grab them, try again.",
+  "failed": "Couldn't take them hostage."
+}

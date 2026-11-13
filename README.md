@@ -83,6 +83,16 @@ exports['gldnrmz-hostage']:ForceRelease(src)   -- frees src from either side, re
 - Job checks moved to the server through `community_bridge`.
 - ox_lib keybinds, locales, callbacks and `GetGamePool` replaced the old loops and hard-coded controls.
 
+## 📄 License
+
+**GLDNRMZ Script License** - see [LICENSE](LICENSE).
+
+- ✅ Run it on your own server and edit it for that server
+- ❌ Don't sell it, re-upload or share it (free or paid), or put it in a pack or server build
+- ❌ Don't remove the credits or claim it as your own
+
+Need something else, like a commercial license? Ask on [Discord](https://discord.gg/7YHJ7774jA).
+
 <!-- gldnrmz-links -->
 ---
 

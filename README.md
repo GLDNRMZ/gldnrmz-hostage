@@ -9,20 +9,25 @@ Take players or NPCs hostage at gunpoint. Works on Qbox, QB-Core and ESX through
 - **Ends on its own**: the hostage is freed if the aggressor dies, goes into last stand, gets cuffed, is tackled, holsters the gun, disconnects or the resource restarts.
 - **Rebindable keys**: Release / Kill (G / H by default) are FiveM key mappings.
 - **State bags**: `Player(src).state.hostageRole` is `'aggressor'`, `'hostage'` or `nil` so other scripts can react. The hostage also gets `invBusy` while held.
-- **Police alerts**: full payload for `tk_dispatch`, and any other dispatch supported by `community_bridge`.
+- **Police alerts**: `Config.PoliceAlert.Function` sends them through community_bridge by default (any supported dispatch). A tk_dispatch version is included as a commented example.
 - **Logs**: takes and executions go to `gldnrmz-logs` when it's running.
 - **0.00 ms idle**: per-frame threads only run while a hostage situation is active.
 
-## Dependencies
+## Requirements
 
 - OneSync
 - `ox_lib`
-- `community_bridge`
-- Optional: `arp_ui`, `tk_dispatch`, `gldnrmz-logs`
+- `community_bridge` **0.13.6 or newer** (Qbox, QBCore or ESX, plus any target / inventory it supports)
+- Optional: `arp_ui` (alternative key prompts), `gldnrmz-logs`
+
+## Installation
+
+1. Start `ox_lib` and `community_bridge` before this resource, then add `ensure gldnrmz-hostage` to `server.cfg`.
+2. Review `config.lua` (allowed weapons, blacklisted jobs, police alert). No items or SQL needed.
 
 ## Usage
 
-1. Hold a loaded pistol from `Config.AllowedWeapons`.
+1. Hold a loaded pistol: any weapon in `Config.AllowedWeaponGroups` (all pistols by default) or listed in `Config.AllowedWeapons`.
 2. Player targets must have their hands up (any `Config.HandsUpAnims` anim or the scully `handsup` state bag).
 3. `/takehostage` or `/th`. You can also bind a key under Settings > Key Bindings > FiveM.
 4. **G** releases (hostage kneels, NPCs then run), **H** kills.
@@ -33,14 +38,15 @@ Everything is in `config.lua`. Text is in `locales/en.json`.
 
 | Option | What it does |
 | --- | --- |
-| `Config.TextUI` | `'arp_ui'`, `'bridge'`, `'native'` or `'none'` |
+| `Config.TextUI` | `'ox_lib'` (default), `'arp_ui'`, `'bridge'`, `'native'` or `'none'` |
+| `Config.AllowedWeapons` / `Config.AllowedWeaponGroups` | Weapons that can take a hostage |
 | `Config.MaxDistance` | How close the target must be |
 | `Config.Cooldown` | Seconds between hostage takes per player |
 | `Config.RequireHandsUp` | Player targets must have hands up |
 | `Config.ReleaseOnRagdoll` | Drop the hostage when tackled |
 | `Config.AllowPeds` / `Config.AllowScriptPeds` | NPC targets |
 | `Config.BlacklistedJobs` | Jobs that can't take hostages (`{ police = true }`) |
-| `Config.PoliceAlert` | Chance and dispatch payload |
+| `Config.PoliceAlert` | Chance, alert details and `Function` (which dispatch to use) |
 
 ## Exports
 
@@ -59,6 +65,12 @@ Server:
 exports['gldnrmz-hostage']:GetHostageRole(src) -- 'aggressor' | 'hostage' | nil
 exports['gldnrmz-hostage']:ForceRelease(src)   -- frees src from either side, returns boolean
 ```
+
+## Changes in 2.1.0
+
+- Any pistol counts by default (`Config.AllowedWeaponGroups`), so MK2 / ceramic / add-on pistols work. An empty gun now says "Your pistol isn't loaded!".
+- Text UI defaults to ox_lib; arp_ui is optional.
+- The police alert is a config function (any dispatch) instead of preferring tk_dispatch.
 
 ## Changes in 2.0.0
 

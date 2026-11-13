@@ -57,6 +57,12 @@ Config.AllowedWeapons = {
     `WEAPON_BROWNING`,
 }
 
+-- Any weapon in these weapon groups also counts (covers MK2 / ceramic / XM3 / add-on pistols).
+-- Set to {} to allow only the exact weapons listed above.
+Config.AllowedWeaponGroups = {
+    `GROUP_PISTOL`,
+}
+
 -- Any of these anims counts as "hands up". The `handsup` state bag (scully_emotemenu) also counts.
 Config.HandsUpAnims = {
     { 'random@mugging3', 'handsup_standing_base' }, -- p_policejob

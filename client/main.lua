@@ -29,6 +29,17 @@ for _, hash in ipairs(Config.AllowedWeapons) do
     allowedWeapons[normHash(hash)] = true
 end
 
+local allowedGroups = {}
+for _, hash in ipairs(Config.AllowedWeaponGroups or {}) do
+    allowedGroups[normHash(hash)] = true
+end
+
+---Listed weapon, or any weapon in an allowed weapon group.
+local function isAllowedWeapon(weapon)
+    if allowedWeapons[normHash(weapon)] then return true end
+    return allowedGroups[normHash(GetWeapontypeGroup(weapon))] == true
+end
+
 ---------------------------------------------------------------------
 -- Helpers
 ---------------------------------------------------------------------
@@ -63,9 +74,14 @@ local function isIncapacitated(state)
     return state.isDead or state.dead or state.laststand or state.isCuffed
 end
 
+---@return boolean ok, string? reason
 local function holdingAllowedWeapon(ped)
     local weapon = GetSelectedPedWeapon(ped)
-    return allowedWeapons[normHash(weapon)] and GetAmmoInPedWeapon(ped, weapon) > 0
+    if not isAllowedWeapon(weapon) then return false, 'need_weapon' end
+    -- Clip or reserve ammo (ox_inventory and native loadouts store it differently)
+    local _, clip = GetAmmoInClip(ped, weapon)
+    if GetAmmoInPedWeapon(ped, weapon) <= 0 and (clip or 0) <= 0 then return false, 'need_ammo' end
+    return true
 end
 
 local function isHandsUp(ped, serverId)
@@ -288,7 +304,7 @@ local function aggressorShouldDrop(state)
     local ped = cache.ped
     if IsEntityDead(ped) or isIncapacitated(LocalPlayer.state) then return true end
     if Config.ReleaseOnRagdoll and IsPedRagdoll(ped) then return true end
-    if not allowedWeapons[normHash(GetSelectedPedWeapon(ped))] then return true end
+    if not isAllowedWeapon(GetSelectedPedWeapon(ped)) then return true end
 
     local hostage = getHostagePed(state)
     if hostage == 0 or not DoesEntityExist(hostage) or IsPedDeadOrDying(hostage, true) then return true end
@@ -396,7 +412,8 @@ end
 local function takeHostage()
     if current or requesting then return notify('already_busy') end
     if cache.vehicle then return notify('in_vehicle') end
-    if not holdingAllowedWeapon(cache.ped) then return notify('need_weapon') end
+    local armed, why = holdingAllowedWeapon(cache.ped)
+    if not armed then return notify(why) end
 
     local kind, targetPed, targetSrc = findTarget()
     if not kind or not targetPed then return notify('no_one_nearby') end

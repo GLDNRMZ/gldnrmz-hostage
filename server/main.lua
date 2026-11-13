@@ -25,6 +25,16 @@ for _, hash in ipairs(Config.AllowedWeapons) do
     allowedWeapons[normHash(hash)] = true
 end
 
+-- Weapon groups can only be read on the client; with groups enabled the server
+-- still requires a real weapon in hand (the client checks the group).
+local useGroups = next(Config.AllowedWeaponGroups or {}) ~= nil
+local UNARMED = normHash(`WEAPON_UNARMED`)
+local function isAllowedWeapon(weapon)
+    weapon = normHash(weapon)
+    if allowedWeapons[weapon] then return true end
+    return useGroups and weapon ~= 0 and weapon ~= UNARMED
+end
+
 ---------------------------------------------------------------------
 -- Helpers
 ---------------------------------------------------------------------
@@ -113,7 +123,7 @@ lib.callback.register('gldnrmz-hostage:server:take', function(src, target)
     local ped = GetPlayerPed(src)
     if ped == 0 or isIncapacitated(src) then return false, 'failed' end
     if GetVehiclePedIsIn(ped, false) ~= 0 then return false, 'in_vehicle' end
-    if not allowedWeapons[normHash(GetSelectedPedWeapon(ped))] then return false, 'need_weapon' end
+    if not isAllowedWeapon(GetSelectedPedWeapon(ped)) then return false, 'need_weapon' end
 
     if target ~= nil then
         target = tonumber(target)

@@ -159,10 +159,9 @@ local function sendPoliceAlert()
     local cfg = Config.PoliceAlert.dispatch
     local coords = GetEntityCoords(cache.ped)
 
-    if GetResourceState('tk_dispatch') == 'started' then
-        local data = table.clone(cfg) --[[@as table]]
-        data.coords = coords
-        exports.tk_dispatch:addCall(data)
+    if Config.PoliceAlert.Function then
+        local ok, err = pcall(Config.PoliceAlert.Function, coords)
+        if not ok then print(('[gldnrmz-hostage] Config.PoliceAlert.Function failed: %s'):format(err)) end
         return
     end
 

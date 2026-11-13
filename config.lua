@@ -96,7 +96,7 @@ Config.HostageAllowedControls = {
 
 ---------------------------------------------------------------------
 -- Police alert
--- tk_dispatch gets the full payload below. Any other dispatch goes through community_bridge.
+-- Config.PoliceAlert.Function sends it (community_bridge by default); `dispatch` holds the alert details.
 ---------------------------------------------------------------------
 Config.PoliceAlert = {
     enabled = true,
@@ -126,6 +126,21 @@ Config.PoliceAlert = {
         },
         jobs = { 'police', 'sheriff' },
     },
+    -- Default: community_bridge sends it to whatever dispatch you run (ps / cd / qs / lb / tk / ...).
+    Function = function(coords)
+        local d = Config.PoliceAlert.dispatch
+        exports.community_bridge:Dispatch().SendAlert({
+            message = d.message, code = d.code, icon = 'fas fa-person-rifle', coords = coords,
+            jobs = d.jobs, time = d.removeTime,
+            blipData = { sprite = d.blip.sprite, color = d.blip.color, scale = d.blip.scale },
+        })
+    end,
+    -- tk_dispatch directly (uses the full `dispatch` table above), if you prefer:
+    --[[ Function = function(coords)
+        local data = table.clone(Config.PoliceAlert.dispatch)
+        data.coords = coords
+        exports.tk_dispatch:addCall(data)
+    end, ]]
 }
 
 ---------------------------------------------------------------------

@@ -6,7 +6,7 @@ use_experimental_fxv2_oal 'yes'
 name 'gldnrmz-hostage'
 author 'rubbertoe98, GLDNRMZ'
 description 'Take players or NPCs hostage at gunpoint'
-version '2.0.0'
+version '2.1.0'
 
 ox_lib 'locale'
 

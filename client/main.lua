@@ -131,6 +131,8 @@ local function showUI()
         exports.arp_ui:Show(killKey:getCurrentKey(), locale('kill'))
     elseif Config.TextUI == 'bridge' then
         HelpText.ShowHelpText(helpText(), 'left-center')
+    elseif Config.TextUI == 'ox_lib' or Config.TextUI == 'arp_ui' then -- arp_ui falls back to ox_lib when it isn't running
+        lib.showTextUI(helpText(), { position = 'left-center' })
     end
 end
 
@@ -141,6 +143,8 @@ local function hideUI()
         exports.arp_ui:Hide(locale('kill'))
     elseif Config.TextUI == 'bridge' then
         HelpText.HideHelpText()
+    elseif Config.TextUI == 'ox_lib' or Config.TextUI == 'arp_ui' then
+        lib.hideTextUI()
     elseif Config.TextUI == 'native' then
         ClearAllHelpMessages()
     end

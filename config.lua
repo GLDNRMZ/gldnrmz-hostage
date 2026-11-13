@@ -15,11 +15,12 @@ Config.ReleaseOnRagdoll = true -- Aggressor drops the hostage when tackled / rag
 Config.BlockHostageInventory = true -- Sets the `invBusy` state bag on the hostage (ox_inventory, qbx)
 
 -- Text UI while holding a hostage:
+--   'ox_lib' - lib.showTextUI (default)
 --   'arp_ui' - two key prompts via arp_ui
 --   'bridge' - community_bridge HelpText (ox_lib / cd_drawtextui / jg-textui / ...)
 --   'native' - GTA help text, top-left
 --   'none'
-Config.TextUI = 'arp_ui'
+Config.TextUI = 'ox_lib'
 
 -- Default keys. Players can rebind these in Settings > Key Bindings > FiveM.
 Config.Keys = {

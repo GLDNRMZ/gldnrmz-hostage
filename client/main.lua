@@ -126,24 +126,24 @@ local function helpText()
 end
 
 local function showUI()
-    if Config.TextUI == 'arp_ui' and GetResourceState('arp_ui') == 'started' then
-        exports.arp_ui:Show(releaseKey:getCurrentKey(), locale('release'))
-        exports.arp_ui:Show(killKey:getCurrentKey(), locale('kill'))
+    if (Config.TextUI == 'gldnrmz-ui' or Config.TextUI == 'arp_ui') and GetResourceState('gldnrmz-ui') == 'started' then
+        exports['gldnrmz-ui']:Show(releaseKey:getCurrentKey(), locale('release'))
+        exports['gldnrmz-ui']:Show(killKey:getCurrentKey(), locale('kill'))
     elseif Config.TextUI == 'bridge' then
         HelpText.ShowHelpText(helpText(), 'left-center')
-    elseif Config.TextUI == 'ox_lib' or Config.TextUI == 'arp_ui' then -- arp_ui falls back to ox_lib when it isn't running
+    elseif Config.TextUI == 'ox_lib' or Config.TextUI == 'gldnrmz-ui' or Config.TextUI == 'arp_ui' then -- gldnrmz-ui (arp_ui = old name) falls back to ox_lib when it isn't running
         lib.showTextUI(helpText(), { position = 'left-center' })
     end
 end
 
 local function hideUI()
-    if Config.TextUI == 'arp_ui' and GetResourceState('arp_ui') == 'started' then
+    if (Config.TextUI == 'gldnrmz-ui' or Config.TextUI == 'arp_ui') and GetResourceState('gldnrmz-ui') == 'started' then
         -- Only remove our prompts, not ones from other resources
-        exports.arp_ui:Hide(locale('release'))
-        exports.arp_ui:Hide(locale('kill'))
+        exports['gldnrmz-ui']:Hide(locale('release'))
+        exports['gldnrmz-ui']:Hide(locale('kill'))
     elseif Config.TextUI == 'bridge' then
         HelpText.HideHelpText()
-    elseif Config.TextUI == 'ox_lib' or Config.TextUI == 'arp_ui' then
+    elseif Config.TextUI == 'ox_lib' or Config.TextUI == 'gldnrmz-ui' or Config.TextUI == 'arp_ui' then
         lib.hideTextUI()
     elseif Config.TextUI == 'native' then
         ClearAllHelpMessages()

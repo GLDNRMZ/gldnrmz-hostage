@@ -16,7 +16,7 @@ Config.BlockHostageInventory = true -- Sets the `invBusy` state bag on the hosta
 
 -- Text UI while holding a hostage:
 --   'ox_lib' - lib.showTextUI (default)
---   'arp_ui' - two key prompts via arp_ui
+--   'gldnrmz-ui' - two key prompts via gldnrmz-ui (falls back to ox_lib if it isn't running)
 --   'bridge' - community_bridge HelpText (ox_lib / cd_drawtextui / jg-textui / ...)
 --   'native' - GTA help text, top-left
 --   'none'

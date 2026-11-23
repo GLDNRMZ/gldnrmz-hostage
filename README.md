@@ -18,7 +18,7 @@ Take players or NPCs hostage at gunpoint. Works on Qbox, QB-Core and ESX through
 - [OneSync](https://docs.fivem.net/docs/scripting-reference/onesync/)
 - [ox_lib](https://github.com/overextended/ox_lib)
 - [community_bridge](https://github.com/TheOrderFivem/community_bridge) **0.13.6 or newer** ([Qbox](https://github.com/Qbox-project/qbx_core), [QBCore](https://github.com/qbcore-framework/qb-core) or [ESX](https://github.com/esx-framework/esx_core), plus any target / inventory it supports)
-- Optional: `arp_ui` (alternative key prompts), `gldnrmz-logs`
+- Optional: `gldnrmz-ui` (alternative key prompts), `gldnrmz-logs`
 
 ## ⚡ Installation
 
@@ -38,7 +38,7 @@ Everything is in `config.lua`. Text is in `locales/en.json`.
 
 | Option | What it does |
 | --- | --- |
-| `Config.TextUI` | `'ox_lib'` (default), `'arp_ui'`, `'bridge'`, `'native'` or `'none'` |
+| `Config.TextUI` | `'ox_lib'` (default), `'gldnrmz-ui'`, `'bridge'`, `'native'` or `'none'` |
 | `Config.AllowedWeapons` / `Config.AllowedWeaponGroups` | Weapons that can take a hostage |
 | `Config.MaxDistance` | How close the target must be |
 | `Config.Cooldown` | Seconds between hostage takes per player |
@@ -69,7 +69,7 @@ exports['gldnrmz-hostage']:ForceRelease(src)   -- frees src from either side, re
 ## 🆕 Changes in 2.1.0
 
 - Any pistol counts by default (`Config.AllowedWeaponGroups`), so MK2 / ceramic / add-on pistols work. An empty gun now says "Your pistol isn't loaded!".
-- Text UI defaults to ox_lib; arp_ui is optional.
+- Text UI defaults to ox_lib; gldnrmz-ui is optional.
 - The police alert is a config function (any dispatch) instead of preferring tk_dispatch.
 
 ## 🆕 Changes in 2.0.0
